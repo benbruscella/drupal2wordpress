@@ -82,14 +82,14 @@ INSERT INTO wordpress.wp_posts
 	LEFT OUTER JOIN drupal.url_alias a
 		ON a.src = CONCAT('node/', n.nid)
 	# Add more Drupal content types below if applicable.
-	WHERE n.type IN ('post', 'page', 'blog')
+	WHERE n.type IN ('post', 'page', 'blog', 'story')
 ;
 
 # Fix post type; http://www.mikesmullin.com/development/migrate-convert-import-drupal-5-to-wordpress-27/#comment-17826
 # Add more Drupal content types below if applicable.
 UPDATE wordpress.wp_posts
 	SET post_type = 'post'
-	WHERE post_type IN ('blog')
+	WHERE post_type IN ('blog', 'story')
 ;
 
 # Set all pages to "pending".
@@ -103,7 +103,8 @@ INSERT INTO wordpress.wp_term_relationships (object_id, term_taxonomy_id)
 ;
 
 # Update tag counts.
-UPDATE wp_term_taxonomy tt
+USE wordpress;
+UPDATE wordpress.wp_term_taxonomy tt
 	SET `count` = (
 		SELECT COUNT(tr.object_id)
 		FROM wp_term_relationships tr
@@ -133,7 +134,7 @@ UPDATE wordpress.wp_posts
 ;
 
 # Fix images in post content; uncomment if you're moving files from "files" to "wp-content/uploads".
-# UPDATE wordpress.wp_posts SET post_content = REPLACE(post_content, '"/files/', '"/wp-content/uploads/');
+UPDATE wordpress.wp_posts SET post_content = REPLACE(post_content, '"/files/', '"/wp-content/uploads/');
 
 # Fix taxonomy; http://www.mikesmullin.com/development/migrate-convert-import-drupal-5-to-wordpress-27/#comment-27140
 UPDATE IGNORE wordpress.wp_term_relationships, wordpress.wp_term_taxonomy
@@ -197,7 +198,7 @@ UPDATE wp_term_taxonomy tt
 ;
 
 # AUTHORS
-INSERT IGNORE INTO wordpress.wp_users
+INSERT IGNORE INTO wordpress.wp_term_relationships
 	(ID, user_login, user_pass, user_nicename, user_email,
 	user_registered, user_activation_key, user_status, display_name)
 	SELECT DISTINCT
