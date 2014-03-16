@@ -1,5 +1,6 @@
 # This set of instructions was updated by 9seeds.com based on
 # a post by Mike Smullin at mikesmullin.com
+# http://blog.room34.com/archives/4530
 #
 # Mike's original post can be found here: 
 # http://www.mikesmullin.com/development/migrate-convert-import-drupal-5-to-wordpress-27/
