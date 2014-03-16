@@ -1,5 +1,7 @@
 # DRUPAL-TO-WORDPRESS CONVERSION SCRIPT
 
+# http://blog.room34.com/archives/4530
+
 # Changelog
 
 # 07.29.2010 - Updated by Scott Anderson / Room 34 Creative Services http://blog.room34.com/archives/4530
