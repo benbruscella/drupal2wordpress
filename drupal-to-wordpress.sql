@@ -342,3 +342,10 @@ UPDATE brownnu_wp1.wp_posts SET post_content = REPLACE(post_content, '//wp-conte
 UPDATE brownnu_wp1.wp_posts SET post_excerpt = REPLACE(post_excerpt, 'files/', '/wp-content/uploads/');
 UPDATE brownnu_wp1.wp_posts SET post_excerpt = REPLACE(post_excerpt, '//wp-content', '/wp-content');
 
+
+# Fix post type; http://www.mikesmullin.com/development/migrate-convert-import-drupal-5-to-wordpress-27/#comment-17826
+# Add more Drupal content types below if applicable.
+UPDATE brownnu_wp1.wp_term_taxonomy
+	SET taxonomy = 'category'
+	WHERE taxonomy IN ('post_tag')
+;
